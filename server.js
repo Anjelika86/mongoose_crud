@@ -32,6 +32,43 @@ app.post("/", async (req, res, next) => {
   }
 });
 
+app.get("/", async (req, res, next) => {
+  try {
+    const phones = await Phone.find();
+    res.status(200).send({ data: phones });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.patch("/:id", async (req, res, next) => {
+  try {
+    const {
+      body,
+      params: { id },
+    } = req;
+    const updatePhone = await Phone.findOneAndUpdate({ _id: id }, body, {
+      returnDocument: "after",
+    });
+    res.send(updatePhone);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.delete("/:id", async (req, res, next) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    const deletedPhone = await Phone.findOneAndDelete({ _id: id });
+    res.send(deletedPhone);
+  } catch (error) {
+    next(error);
+  }
+});
+
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
