@@ -1,0 +1,13 @@
+POST http://localhost:3000/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "brand" : "test",
+  "model":"tedt",
+  "price": 545,
+  "amount": 50,
+  "specs": {"cpu":"5gr",
+  "ran":8,
+  "storage":25
+  }
+}
